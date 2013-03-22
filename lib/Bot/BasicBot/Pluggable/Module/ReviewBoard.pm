@@ -5,7 +5,7 @@ use warnings;
 
 # ABSTRACT: Review Board Basic Bot IRC plugin
 
-BEGIN { $Bot::BasicBot::Pluggable::Module::ReviewBoard::VERSION = '1.0.0' }
+BEGIN { $Bot::BasicBot::Pluggable::Module::ReviewBoard::VERSION = '1.0.1' }
 
 use base qw(Bot::BasicBot::Pluggable::Module);
 
@@ -37,7 +37,7 @@ sub told {
 
 	$regexp =~ s{ %RB_URL% }{ $rb_url }xg;
 	if ( $message->{body} =~ m{ $regexp }ix ) {
-		if ( my $rb = $+{rb} =~ m{^\d+$} ) {
+		if ( ( my $rb = $+{rb} ) =~ m{^\d+$} ) {
 			return $self->_rb_message( $self->_get_rb_data( $rb ) );
 		}
 		else {
@@ -116,7 +116,7 @@ Bot::BasicBot::Pluggable::Module::ReviewBoard - Review Board Basic Bot IRC plugi
 
 =head1 VERSION
 
-version 1.0.0
+version 1.0.1
 
 =head1 SYNOPSIS
 
